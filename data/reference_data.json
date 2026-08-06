@@ -1,0 +1,2217 @@
+{
+  "version": 1,
+  "exported_at": "2026-08-06T09:36:43.971730+00:00",
+  "categories": [
+    {
+      "slug": "ads",
+      "label": "Advertising",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "amazon_ads",
+      "label": "Amazon advertising",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "amazon_transaction",
+      "label": "Amazon transaction",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": false,
+      "badge_bg": "#422006",
+      "badge_text": "#fbbf24"
+    },
+    {
+      "slug": "bank_fee",
+      "label": "Bank fee",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": false,
+      "badge_bg": "#1e293b",
+      "badge_text": "#94a3b8"
+    },
+    {
+      "slug": "consulting",
+      "label": "Consulting",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "coworking",
+      "label": "Coworking",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#244a7f",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "facebook_ads",
+      "label": "Facebook advertising",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "goods_inspection",
+      "label": "Goods inspection",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "internal_transfer",
+      "label": "Internal transfer",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": false,
+      "badge_bg": "#172554",
+      "badge_text": "#93c5fd"
+    },
+    {
+      "slug": "inventory_assets",
+      "label": "Inventory assets",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "loan",
+      "label": "Loan",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": false,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "logistics",
+      "label": "Logistics",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#14532d",
+      "badge_text": "#86efac"
+    },
+    {
+      "slug": "market_research",
+      "label": "Market research",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "membership",
+      "label": "Membership",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "office_supplies",
+      "label": "Office supplies",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "parcel_service",
+      "label": "Parcel service",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "phone",
+      "label": "Phone",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "product_samples",
+      "label": "Product samples",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "revenue",
+      "label": "Revenue",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": false,
+      "badge_bg": "#064e3b",
+      "badge_text": "#6ee7b7"
+    },
+    {
+      "slug": "salary",
+      "label": "Salary",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": false,
+      "badge_bg": "#713f12",
+      "badge_text": "#fcd34d"
+    },
+    {
+      "slug": "search_ads",
+      "label": "Search advertising",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "software_subscription",
+      "label": "Software subscription",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#312e81",
+      "badge_text": "#a5b4fc"
+    },
+    {
+      "slug": "storage",
+      "label": "Storage",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "subsistence",
+      "label": "Subsistence",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "supplier_purchase",
+      "label": "Supplier purchase",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#581c87",
+      "badge_text": "#d8b4fe"
+    },
+    {
+      "slug": "taxes",
+      "label": "Taxes",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "tiktok_ads",
+      "label": "TikTok advertising",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "transport_goods",
+      "label": "Transport goods",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "travel",
+      "label": "Travel",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "walmart_service",
+      "label": "WalMart",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "warehouse",
+      "label": "Warehouse",
+      "sort_order": 100,
+      "is_active": true,
+      "requires_invoice_default": true,
+      "badge_bg": "#334155",
+      "badge_text": "#e2e8f0"
+    },
+    {
+      "slug": "unknown",
+      "label": "Unknown",
+      "sort_order": 999,
+      "is_active": true,
+      "requires_invoice_default": null,
+      "badge_bg": "#450a0a",
+      "badge_text": "#fca5a5"
+    }
+  ],
+  "banks": [
+    {
+      "key": "amex",
+      "display_name": "Amex",
+      "default_currency": "GBP",
+      "is_active": true
+    },
+    {
+      "key": "barclays",
+      "display_name": "Barclays",
+      "default_currency": "GBP",
+      "is_active": true
+    },
+    {
+      "key": "capital_on_tap",
+      "display_name": "Capital on Tap",
+      "default_currency": "GBP",
+      "is_active": true
+    },
+    {
+      "key": "generic",
+      "display_name": "Generic fallback",
+      "default_currency": "GBP",
+      "is_active": true
+    },
+    {
+      "key": "hsbc",
+      "display_name": "HSBC",
+      "default_currency": "GBP",
+      "is_active": true
+    },
+    {
+      "key": "hsbc_csv",
+      "display_name": "HSBC CSV/Loan",
+      "default_currency": "GBP",
+      "is_active": true
+    },
+    {
+      "key": "paypal",
+      "display_name": "PayPal",
+      "default_currency": "GBP",
+      "is_active": true
+    },
+    {
+      "key": "revolut",
+      "display_name": "Revolut",
+      "default_currency": "GBP",
+      "is_active": true
+    },
+    {
+      "key": "revolut_savings",
+      "display_name": "Revolut Savings",
+      "default_currency": "GBP",
+      "is_active": true
+    }
+  ],
+  "companies": [
+    {
+      "key": "cubetag",
+      "display_name": "Cubetag",
+      "is_active": true
+    },
+    {
+      "key": "doorz",
+      "display_name": "Doorz",
+      "is_active": true
+    },
+    {
+      "key": "hipcrate",
+      "display_name": "Hipcrate",
+      "is_active": true
+    }
+  ],
+  "invoice_owners": [
+    {
+      "name": "Alex",
+      "email": null,
+      "notes": null,
+      "is_active": true
+    },
+    {
+      "name": "Andrei",
+      "email": null,
+      "notes": null,
+      "is_active": true
+    },
+    {
+      "name": "Artem",
+      "email": null,
+      "notes": null,
+      "is_active": true
+    },
+    {
+      "name": "Boris",
+      "email": null,
+      "notes": null,
+      "is_active": true
+    },
+    {
+      "name": "Eugene",
+      "email": null,
+      "notes": null,
+      "is_active": true
+    },
+    {
+      "name": "Lera",
+      "email": null,
+      "notes": null,
+      "is_active": true
+    },
+    {
+      "name": "Maksim",
+      "email": null,
+      "notes": null,
+      "is_active": true
+    },
+    {
+      "name": "Oksana",
+      "email": null,
+      "notes": null,
+      "is_active": true
+    }
+  ],
+  "vendors": [
+    {
+      "name": "37signals LLC",
+      "normalized_name": "37signals llc",
+      "aliases": [
+        "basecamp",
+        "37signals"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Amazon Advertising LLC",
+      "normalized_name": "amazon advertising llc",
+      "aliases": [
+        "amazon media group"
+      ],
+      "default_category": "amazon_ads",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Boris",
+      "notes": null
+    },
+    {
+      "name": "Andrei Yaremchanka",
+      "normalized_name": "andrei yaremchanka",
+      "aliases": [
+        "andrei yaremchanka"
+      ],
+      "default_category": "market_research",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Anthropic",
+      "normalized_name": "anthropic",
+      "aliases": [
+        "anthropic",
+        "claude"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "Artlist UK Ltd",
+      "normalized_name": "artlist uk ltd",
+      "aliases": [
+        "bls*artlist",
+        "artlist"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "Bee Health LTD",
+      "normalized_name": "bee health ltd",
+      "aliases": [
+        "bee health"
+      ],
+      "default_category": "inventory_assets",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Bio Pack",
+      "normalized_name": "bio pack",
+      "aliases": [
+        "bio pack",
+        "biopack",
+        "bio pak",
+        "biopak"
+      ],
+      "default_category": "inventory_assets",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Bolt Technology",
+      "normalized_name": "bolt technology",
+      "aliases": [
+        "bolt"
+      ],
+      "default_category": "travel",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Brand Expand LLC",
+      "normalized_name": "brand expand llc",
+      "aliases": [
+        "brand expand",
+        "brandexpand"
+      ],
+      "default_category": "ads",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Lera",
+      "notes": null
+    },
+    {
+      "name": "British Airlines",
+      "normalized_name": "british airlines",
+      "aliases": [
+        "british a"
+      ],
+      "default_category": "travel",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Brufend OU",
+      "normalized_name": "brufend ou",
+      "aliases": [
+        "brufend"
+      ],
+      "default_category": "amazon_ads",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Channel Reply",
+      "normalized_name": "channel reply",
+      "aliases": [
+        "channelreply",
+        "channelrep"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Chaozhou Chaoan Adding Ceramics Co Ltd",
+      "normalized_name": "chaozhou chaoan adding ceramics co ltd",
+      "aliases": [
+        "bali",
+        "chaozhou chaoan"
+      ],
+      "default_category": "inventory_assets",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Cory Brothers Ltd",
+      "normalized_name": "cory brothers ltd",
+      "aliases": [
+        "cory brothers"
+      ],
+      "default_category": "logistics",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Cursor",
+      "normalized_name": "cursor",
+      "aliases": [
+        "cursor"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "David Lloyd Leisure",
+      "normalized_name": "david lloyd leisure",
+      "aliases": [
+        "david lloyd leisur"
+      ],
+      "default_category": "membership",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Boris",
+      "notes": null
+    },
+    {
+      "name": "EasyStaff Payroll",
+      "normalized_name": "easystaff payroll",
+      "aliases": [
+        "easystaff"
+      ],
+      "default_category": "salary",
+      "default_requires_invoice": false,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Eleven Labs Inc",
+      "normalized_name": "eleven labs inc",
+      "aliases": [
+        "elevenlabs"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "Enhancor AI",
+      "normalized_name": "enhancor ai",
+      "aliases": [
+        "enhancor",
+        "syntheticugc"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "Experian",
+      "normalized_name": "experian",
+      "aliases": [
+        "experian",
+        "my business profile"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "Facebook",
+      "normalized_name": "facebook",
+      "aliases": [
+        "facebook",
+        "facebk"
+      ],
+      "default_category": "facebook_ads",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Lera",
+      "notes": null
+    },
+    {
+      "name": "Fandl LLC",
+      "normalized_name": "fandl llc",
+      "aliases": [
+        "fandl",
+        "fandl llc"
+      ],
+      "default_category": "consulting",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Fbahelp Company Ltd",
+      "normalized_name": "fbahelp company ltd",
+      "aliases": [
+        "fbahelp"
+      ],
+      "default_category": "goods_inspection",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Eugene",
+      "notes": null
+    },
+    {
+      "name": "Fidesta Logistics Private LTD",
+      "normalized_name": "fidesta logistics private ltd",
+      "aliases": [
+        "fidesta"
+      ],
+      "default_category": "logistics",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Fulﬁllment-Box",
+      "normalized_name": "fulﬁllment-box",
+      "aliases": [
+        "fulfillment-box",
+        "ffb estonia",
+        "ysell"
+      ],
+      "default_category": "warehouse",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Funding Circle LTD",
+      "normalized_name": "funding circle ltd",
+      "aliases": [
+        "funding circle"
+      ],
+      "default_category": "loan",
+      "default_requires_invoice": false,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "GoCardless",
+      "normalized_name": "gocardless",
+      "aliases": [
+        "gocardless"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": false,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Goldvits Health Ltd",
+      "normalized_name": "goldvits health ltd",
+      "aliases": [
+        "goldvits"
+      ],
+      "default_category": "inventory_assets",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Google",
+      "normalized_name": "google",
+      "aliases": [
+        "google one",
+        "google cloud"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Hangzhou Haotai Trading Co Ltd",
+      "normalized_name": "hangzhou haotai trading co ltd",
+      "aliases": [
+        "hao",
+        "hangzhou haotai"
+      ],
+      "default_category": "inventory_assets",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Helium 10",
+      "normalized_name": "helium 10",
+      "aliases": [
+        "helium10"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Henfield Hire Ltd",
+      "normalized_name": "henfield hire ltd",
+      "aliases": [
+        "henfield",
+        "henfield hire"
+      ],
+      "default_category": "storage",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Artem",
+      "notes": null
+    },
+    {
+      "name": "Henv Leader Industry Ltd",
+      "normalized_name": "henv leader industry ltd",
+      "aliases": [
+        "henv",
+        "guangzhou panyu"
+      ],
+      "default_category": "inventory_assets",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Hetzner GmbH",
+      "normalized_name": "hetzner gmbh",
+      "aliases": [
+        "hetzner"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "HeyGen Technology Inc",
+      "normalized_name": "heygen technology inc",
+      "aliases": [
+        "heygen"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Interparcel Ltd",
+      "normalized_name": "interparcel ltd",
+      "aliases": [
+        "interparcel"
+      ],
+      "default_category": "parcel_service",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "JH-Mech Enterprises Inc",
+      "normalized_name": "jh-mech enterprises inc",
+      "aliases": [
+        "jhme",
+        "jh mech enterprise"
+      ],
+      "default_category": "inventory_assets",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Keepa",
+      "normalized_name": "keepa",
+      "aliases": [
+        "keepa"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "Kings Park Fulfillment LTD",
+      "normalized_name": "kings park fulfillment ltd",
+      "aliases": [
+        "kings park"
+      ],
+      "default_category": "warehouse",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Klaviyo Inc",
+      "normalized_name": "klaviyo inc",
+      "aliases": [
+        "klaviyo"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Landing Cube",
+      "normalized_name": "landing cube",
+      "aliases": [
+        "landingcube"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Lera",
+      "notes": null
+    },
+    {
+      "name": "LastPass",
+      "normalized_name": "lastpass",
+      "aliases": [
+        "lastpass"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "LendingCrowd",
+      "normalized_name": "lendingcrowd",
+      "aliases": [
+        "lendingcrowd"
+      ],
+      "default_category": "loan",
+      "default_requires_invoice": false,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Loom Inc",
+      "normalized_name": "loom inc",
+      "aliases": [
+        "loom",
+        "loom subscription"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Manychat",
+      "normalized_name": "manychat",
+      "aliases": [
+        "manychat"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Lera",
+      "notes": null
+    },
+    {
+      "name": "Market Intelligence Systems B.V.",
+      "normalized_name": "market intelligence systems b.v.",
+      "aliases": [
+        "mis b.v.",
+        "mis b. v."
+      ],
+      "default_category": "ads",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Lera",
+      "notes": null
+    },
+    {
+      "name": "Midjourney Inc",
+      "normalized_name": "midjourney inc",
+      "aliases": [
+        "midjourney"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Oksana",
+      "notes": null
+    },
+    {
+      "name": "Moxy Warsaw City",
+      "normalized_name": "moxy warsaw city",
+      "aliases": [
+        "moxy warsaw city"
+      ],
+      "default_category": "travel",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Nucleus Cash Flow Finance2 LTD",
+      "normalized_name": "nucleus cash flow finance2 ltd",
+      "aliases": [
+        "ncf finance2"
+      ],
+      "default_category": "loan",
+      "default_requires_invoice": false,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "O2",
+      "normalized_name": "o2",
+      "aliases": [
+        "o2"
+      ],
+      "default_category": "phone",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Oksana Dzedava",
+      "normalized_name": "oksana dzedava",
+      "aliases": [
+        "dzedava"
+      ],
+      "default_category": "salary",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Open AI",
+      "normalized_name": "open ai",
+      "aliases": [
+        "openai",
+        "chatgpt"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Orbit Cargo Services LTD",
+      "normalized_name": "orbit cargo services ltd",
+      "aliases": [
+        "orbit cargo"
+      ],
+      "default_category": "logistics",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Pacvue Corporation",
+      "normalized_name": "pacvue corporation",
+      "aliases": [
+        "pacvue"
+      ],
+      "default_category": "search_ads",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Palina Shusta",
+      "normalized_name": "palina shusta",
+      "aliases": [
+        "shusta",
+        "palina shusta"
+      ],
+      "default_category": "salary",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Pavel Burdzilau",
+      "normalized_name": "pavel burdzilau",
+      "aliases": [
+        "pavel burdzilau"
+      ],
+      "default_category": "salary",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "People’s Partnership",
+      "normalized_name": "people’s partnership",
+      "aliases": [
+        "peoplespartnership"
+      ],
+      "default_category": "loan",
+      "default_requires_invoice": false,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Pixelfy Corp Inc",
+      "normalized_name": "pixelfy corp inc",
+      "aliases": [
+        "pixelfy",
+        "pixelfy.me"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Renaissance",
+      "normalized_name": "renaissance",
+      "aliases": [
+        "renaissance"
+      ],
+      "default_category": "travel",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Render",
+      "normalized_name": "render",
+      "aliases": [
+        "render"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "Replit",
+      "normalized_name": "replit",
+      "aliases": [
+        "replit"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Rimantas Logistics",
+      "normalized_name": "rimantas logistics",
+      "aliases": [
+        "rimantas"
+      ],
+      "default_category": "transport_goods",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Eugene",
+      "notes": null
+    },
+    {
+      "name": "RyanAir",
+      "normalized_name": "ryanair",
+      "aliases": [
+        "ryanair"
+      ],
+      "default_category": "travel",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Seed Legals",
+      "normalized_name": "seed legals",
+      "aliases": [
+        "seedlegals"
+      ],
+      "default_category": "loan",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Sellerboard",
+      "normalized_name": "sellerboard",
+      "aliases": [
+        "sellerboard"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "SentryKit",
+      "normalized_name": "sentrykit",
+      "aliases": [
+        "sentrykit"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Sheraton",
+      "normalized_name": "sheraton",
+      "aliases": [
+        "sheraton"
+      ],
+      "default_category": "travel",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Shopify",
+      "normalized_name": "shopify",
+      "aliases": [
+        "shopify"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Shutterstock",
+      "normalized_name": "shutterstock",
+      "aliases": [
+        "shutterstock"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Siarhei Vainilovic",
+      "normalized_name": "siarhei vainilovic",
+      "aliases": [
+        "siarhei vainilovic"
+      ],
+      "default_category": "market_research",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Smart Finance",
+      "normalized_name": "smart finance",
+      "aliases": [
+        "smart finance loan"
+      ],
+      "default_category": "loan",
+      "default_requires_invoice": false,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Smart Organic AD",
+      "normalized_name": "smart organic ad",
+      "aliases": [
+        "smart organic"
+      ],
+      "default_category": "inventory_assets",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "SparkX Marketing Co Ltd",
+      "normalized_name": "sparkx marketing co ltd",
+      "aliases": [
+        "sparkx marketing",
+        "xnurta"
+      ],
+      "default_category": "amazon_ads",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Boris",
+      "notes": null
+    },
+    {
+      "name": "Squarespace",
+      "normalized_name": "squarespace",
+      "aliases": [
+        "squarespace",
+        "sqsp",
+        "sqsp*"
+      ],
+      "default_category": "coworking",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "Supadata",
+      "normalized_name": "supadata",
+      "aliases": [
+        "supadata"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "Taxually",
+      "normalized_name": "taxually",
+      "aliases": [
+        "taxually"
+      ],
+      "default_category": "taxes",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "The Landing",
+      "normalized_name": "the landing",
+      "aliases": [
+        "the landing",
+        "spacemade"
+      ],
+      "default_category": "coworking",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "The Phone Shop Farnham GB",
+      "normalized_name": "the phone shop farnham gb",
+      "aliases": [
+        "phone shop farnham"
+      ],
+      "default_category": "office_supplies",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Boris",
+      "notes": null
+    },
+    {
+      "name": "TikTok",
+      "normalized_name": "tiktok",
+      "aliases": [
+        "tiktok ads"
+      ],
+      "default_category": "tiktok_ads",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Boris",
+      "notes": null
+    },
+    {
+      "name": "Traject Data",
+      "normalized_name": "traject data",
+      "aliases": [
+        "trajectdata"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "Twilio",
+      "normalized_name": "twilio",
+      "aliases": [
+        "twilio"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Uber",
+      "normalized_name": "uber",
+      "aliases": [
+        "uber"
+      ],
+      "default_category": "travel",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "WalMart",
+      "normalized_name": "walmart",
+      "aliases": [
+        "walmart"
+      ],
+      "default_category": "walmart_service",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Alex",
+      "notes": null
+    },
+    {
+      "name": "WeWork",
+      "normalized_name": "wework",
+      "aliases": [
+        "wework",
+        "weworkpl"
+      ],
+      "default_category": "coworking",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Maksim",
+      "notes": null
+    },
+    {
+      "name": "WebBee Esolutions Private Ltd",
+      "normalized_name": "webbee esolutions private ltd",
+      "aliases": [
+        "webbee"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Boris",
+      "notes": null
+    },
+    {
+      "name": "Wickes",
+      "normalized_name": "wickes",
+      "aliases": [
+        "wickes",
+        "wickes building"
+      ],
+      "default_category": "office_supplies",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Xiamen Eastland Trading Co LTD.",
+      "normalized_name": "xiamen eastland trading co ltd.",
+      "aliases": [
+        "xiamen"
+      ],
+      "default_category": "inventory_assets",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": "Andrei",
+      "notes": null
+    },
+    {
+      "name": "Yandex",
+      "normalized_name": "yandex",
+      "aliases": [
+        "yandex"
+      ],
+      "default_category": "travel",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Zendesk",
+      "normalized_name": "zendesk",
+      "aliases": [
+        "zendesk"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "Zoom Communications Inc",
+      "normalized_name": "zoom communications inc",
+      "aliases": [
+        "zoom"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    },
+    {
+      "name": "fal - Features & Labels, Inc.",
+      "normalized_name": "fal - features & labels, inc.",
+      "aliases": [
+        "fal features",
+        "fal features labels"
+      ],
+      "default_category": "software_subscription",
+      "default_requires_invoice": true,
+      "default_invoice_provider": null,
+      "default_invoice_owner": null,
+      "notes": null
+    }
+  ],
+  "classification_rules": [
+    {
+      "name": "Amazon AMZN prefix",
+      "pattern": "amzn",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "amazon_transaction",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 200,
+      "confidence": "0.90",
+      "is_active": true
+    },
+    {
+      "name": "Amazon seller repayment",
+      "pattern": "seller repayment",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "amazon_transaction",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 200,
+      "confidence": "0.90",
+      "is_active": true
+    },
+    {
+      "name": "AMEX",
+      "pattern": "american express",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "internal_transfer",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 180,
+      "confidence": "0.85",
+      "is_active": true
+    },
+    {
+      "name": "Annual fee",
+      "pattern": "annual fee",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 180,
+      "confidence": "0.85",
+      "is_active": true
+    },
+    {
+      "name": "Bank charge",
+      "pattern": "payment charge",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 180,
+      "confidence": "0.85",
+      "is_active": true
+    },
+    {
+      "name": "Bank fees",
+      "pattern": "bank fee",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 180,
+      "confidence": "0.85",
+      "is_active": true
+    },
+    {
+      "name": "Ebay revenue",
+      "pattern": "ebay commerce uk l",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "revenue",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 180,
+      "confidence": "0.85",
+      "is_active": true
+    },
+    {
+      "name": "Monthly fee",
+      "pattern": "monthly fee",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 180,
+      "confidence": "0.85",
+      "is_active": true
+    },
+    {
+      "name": "Non-sterling fee",
+      "pattern": "non-sterling",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 180,
+      "confidence": "0.85",
+      "is_active": true
+    },
+    {
+      "name": "Revolut business fee",
+      "pattern": "revolut business fee",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 180,
+      "confidence": "0.85",
+      "is_active": true
+    },
+    {
+      "name": "Service charge",
+      "pattern": "service charge",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 180,
+      "confidence": "0.85",
+      "is_active": true
+    },
+    {
+      "name": "Internal transfer",
+      "pattern": "internal transfer",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "internal_transfer",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 170,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Transfer keyword",
+      "pattern": "intercompany",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "internal_transfer",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 160,
+      "confidence": "0.75",
+      "is_active": true
+    },
+    {
+      "name": "Salary payments",
+      "pattern": "salary",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "salary",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 150,
+      "confidence": "0.90",
+      "is_active": true
+    },
+    {
+      "name": "Stripe revenue",
+      "pattern": "stripe payments",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "revenue",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 150,
+      "confidence": "0.85",
+      "is_active": true
+    },
+    {
+      "name": "Fulfillment",
+      "pattern": "fulfillment",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "logistics",
+      "requires_invoice": true,
+      "invoice_provider": "merchant_name",
+      "invoice_owner": null,
+      "priority": 130,
+      "confidence": "0.70",
+      "is_active": true
+    },
+    {
+      "name": "Logistics forwarder",
+      "pattern": "freight",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "logistics",
+      "requires_invoice": true,
+      "invoice_provider": "merchant_name",
+      "invoice_owner": null,
+      "priority": 130,
+      "confidence": "0.70",
+      "is_active": true
+    },
+    {
+      "name": "Amazon CA",
+      "pattern": "amazon.com.ca",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "revenue",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Amazon marketing",
+      "pattern": "amazon marketing",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "amazon_transaction",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Amazon marketing",
+      "pattern": "amz*marketing svcs",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "amazon_transaction",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Amazon payments",
+      "pattern": "amazon payment",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "amazon_transaction",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Amazon services",
+      "pattern": "amazon services",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "amazon_transaction",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Amazon services",
+      "pattern": "servamazon svcs",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "amazon_transaction",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Bank charge",
+      "pattern": "charges commission",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Bank charge",
+      "pattern": "chgs",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Bank charge",
+      "pattern": "total charges",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Bank fees",
+      "pattern": "cardmembership fee",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.90",
+      "is_active": true
+    },
+    {
+      "name": "Bank fees",
+      "pattern": "non sterling transaction fee",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Bar",
+      "pattern": "bar",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "subsistence",
+      "requires_invoice": true,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "HSBC fee",
+      "pattern": "hsbc bank plc scs",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "bank_fee",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Hotel",
+      "pattern": "hotel",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "travel",
+      "requires_invoice": true,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Internal transfer",
+      "pattern": "money added from hipcrate",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "internal_transfer",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Loan arrears",
+      "pattern": "loan arrears",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "loan",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Loan burdilov",
+      "pattern": "maksim burdilov loan",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "loan",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Loan ca auto",
+      "pattern": "ca auto finance",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "loan",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Loan repayment",
+      "pattern": "loan repayment",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "loan",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "MangoPay",
+      "pattern": "mangopay",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "revenue",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "PayPal",
+      "pattern": "cancellation of hold for dispute resolution",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "internal_transfer",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "PayPal",
+      "pattern": "express checkout payment",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "revenue",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "PayPal",
+      "pattern": "general currency conversion",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "internal_transfer",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "PayPal",
+      "pattern": "general payment",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "supplier_purchase",
+      "requires_invoice": true,
+      "invoice_provider": "merchant_name",
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "PayPal",
+      "pattern": "hold on balance for dispute investigation",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "internal_transfer",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "PayPal",
+      "pattern": "pre-approved payment bill user payment",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "revenue",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Restaurant",
+      "pattern": "restauracja",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "subsistence",
+      "requires_invoice": true,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Restaurant",
+      "pattern": "restaurant",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "subsistence",
+      "requires_invoice": true,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "Transfer keyword",
+      "pattern": "payment received - thank you",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "internal_transfer",
+      "requires_invoice": false,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.90",
+      "is_active": true
+    },
+    {
+      "name": "VAT",
+      "pattern": "vat",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "taxes",
+      "requires_invoice": true,
+      "invoice_provider": null,
+      "invoice_owner": "Andrei",
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    },
+    {
+      "name": "eBay",
+      "pattern": "ebay o*",
+      "pattern_type": "contains",
+      "bank_name": null,
+      "direction": null,
+      "category": "product_samples",
+      "requires_invoice": true,
+      "invoice_provider": null,
+      "invoice_owner": null,
+      "priority": 100,
+      "confidence": "0.80",
+      "is_active": true
+    }
+  ]
+}

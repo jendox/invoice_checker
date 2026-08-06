@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% from "_macros.html" import category_badge %}
+{% block title %}Categories — Invoice Checker{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Categories</h1>
+  <p>Transaction classification categories used in rules and filters</p>
+</div>
+
+<div class="card">
+  <div class="card-toolbar">
+    <div class="card-toolbar-title">
+      <h3>All Categories</h3>
+      <span class="card-toolbar-count">{{ categories|length }} total</span>
+    </div>
+    <button type="button" class="btn-icon btn-icon-primary" id="btnAddCategory" title="Add category" aria-label="Add category">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Slug</th>
+        <th>Label</th>
+        <th>Sort</th>
+        <th>Default Invoice</th>
+        <th>Active</th>
+        <th class="col-actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cat in categories %}
+      <tr>
+        <td><code>{{ cat.slug }}</code></td>
+        <td>{{ category_badge(cat.slug, category_styles) }}</td>
+        <td>{{ cat.sort_order }}</td>
+        <td>
+          {% if cat.requires_invoice_default == true %}Yes
+          {% elif cat.requires_invoice_default == false %}No
+          {% else %}?{% endif %}
+        </td>
+        <td>{{ '✓' if cat.is_active else '✗' }}</td>
+        <td class="actions-cell">
+          <button type="button" class="btn-icon btn-edit-item" title="Edit" aria-label="Edit"
+            data-id="{{ cat.id }}"
+            data-slug="{{ cat.slug }}"
+            data-label="{{ cat.label }}"
+            data-sort-order="{{ cat.sort_order }}"
+            data-requires-invoice="{% if cat.requires_invoice_default == true %}true{% elif cat.requires_invoice_default == false %}false{% else %}unknown{% endif %}"
+            data-is-active="{{ 'true' if cat.is_active else 'false' }}"
+            data-badge-bg="{{ cat.badge_bg }}"
+            data-badge-text="{{ cat.badge_text }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3zM14 6l3 3"/></svg>
+          </button>
+          <button type="button" class="btn-icon btn-icon-danger btn-delete-item" title="Delete" aria-label="Delete"
+            data-id="{{ cat.id }}" data-name="{{ cat.label }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M10 11v6M14 11v6M6 7l1 12h10l1-12"/></svg>
+          </button>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6" class="table-empty">No categories yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-overlay" id="itemFormModal">
+  <div class="modal">
+    <h3 id="itemFormTitle">Add Category</h3>
+    <form id="itemForm" method="post" action="/categories/create">
+      <div class="form-group">
+        <label>Slug</label>
+        <input type="text" name="slug" id="itemSlug" required pattern="[a-z0-9_]+">
+      </div>
+      <div class="form-group">
+        <label>Label</label>
+        <input type="text" name="label" id="itemLabel" required>
+      </div>
+      <div class="form-group">
+        <label>Sort Order</label>
+        <input type="number" name="sort_order" id="itemSortOrder" value="100">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Badge Background</label>
+          <input type="color" name="badge_bg" id="itemBadgeBg" value="#334155">
+        </div>
+        <div class="form-group">
+          <label>Badge Text</label>
+          <input type="color" name="badge_text" id="itemBadgeText" value="#e2e8f0">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Preview</label>
+        <span class="badge" id="itemBadgePreview">Preview</span>
+      </div>
+      <div class="form-group">
+        <label>Default Requires Invoice</label>
+        <select name="requires_invoice" id="itemRequiresInvoice">
+          <option value="unknown">Unknown</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Active</label>
+        <select name="is_active" id="itemIsActive">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="itemFormModal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="itemFormSubmit">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deleteItemModal">
+  <div class="modal modal-sm">
+    <h3>Delete Category</h3>
+    <p id="deleteItemMessage" class="modal-text"></p>
+    <p class="modal-text-muted">If used by transactions, the category will be deactivated instead.</p>
+    <form id="deleteItemForm" method="post">
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="deleteItemModal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const defaults = {
+  slug: '', label: '', sortOrder: '100', requiresInvoice: 'unknown',
+  isActive: 'true', badgeBg: '#334155', badgeText: '#e2e8f0',
+};
+
+function updateBadgePreview() {
+  const preview = document.getElementById('itemBadgePreview');
+  preview.style.background = document.getElementById('itemBadgeBg').value;
+  preview.style.color = document.getElementById('itemBadgeText').value;
+  preview.textContent = document.getElementById('itemLabel').value || 'Preview';
+}
+
+function setValues(v) {
+  document.getElementById('itemSlug').value = v.slug;
+  document.getElementById('itemLabel').value = v.label;
+  document.getElementById('itemSortOrder').value = v.sortOrder;
+  document.getElementById('itemRequiresInvoice').value = v.requiresInvoice;
+  document.getElementById('itemIsActive').value = v.isActive;
+  document.getElementById('itemBadgeBg').value = v.badgeBg;
+  document.getElementById('itemBadgeText').value = v.badgeText;
+  updateBadgePreview();
+}
+
+document.getElementById('itemLabel').addEventListener('input', updateBadgePreview);
+document.getElementById('itemBadgeBg').addEventListener('input', updateBadgePreview);
+document.getElementById('itemBadgeText').addEventListener('input', updateBadgePreview);
+
+document.getElementById('btnAddCategory').addEventListener('click', function() {
+  document.getElementById('itemForm').action = '/categories/create';
+  document.getElementById('itemFormTitle').textContent = 'Add Category';
+  document.getElementById('itemFormSubmit').textContent = 'Add';
+  document.getElementById('itemSlug').readOnly = false;
+  setValues(defaults);
+  openModal('itemFormModal');
+});
+
+document.querySelectorAll('.btn-edit-item').forEach(function(button) {
+  button.addEventListener('click', function() {
+    document.getElementById('itemForm').action = '/categories/' + button.dataset.id + '/edit';
+    document.getElementById('itemFormTitle').textContent = 'Edit Category';
+    document.getElementById('itemFormSubmit').textContent = 'Save';
+    document.getElementById('itemSlug').readOnly = true;
+    setValues({
+      slug: button.dataset.slug,
+      label: button.dataset.label,
+      sortOrder: button.dataset.sortOrder,
+      requiresInvoice: button.dataset.requiresInvoice,
+      isActive: button.dataset.isActive,
+      badgeBg: button.dataset.badgeBg,
+      badgeText: button.dataset.badgeText,
+    });
+    openModal('itemFormModal');
+  });
+});
+
+document.querySelectorAll('.btn-delete-item').forEach(function(button) {
+  button.addEventListener('click', function() {
+    document.getElementById('deleteItemForm').action = '/categories/' + button.dataset.id + '/delete';
+    document.getElementById('deleteItemMessage').textContent = 'Delete category "' + button.dataset.name + '"?';
+    openModal('deleteItemModal');
+  });
+});
+</script>
+{% endblock %}

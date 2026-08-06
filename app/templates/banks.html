@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block title %}Banks — Invoice Checker{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Banks</h1>
+  <p>Bank presets for statement parsing. New keys use generic column mapping until a custom preset is added.</p>
+</div>
+
+<div class="card">
+  <div class="card-toolbar">
+    <div class="card-toolbar-title">
+      <h3>All Banks</h3>
+      <span class="card-toolbar-count">{{ banks|length }} total</span>
+    </div>
+    <button type="button" class="btn-icon btn-icon-primary" id="btnAddBank" title="Add bank" aria-label="Add bank">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Display Name</th>
+        <th>Currency</th>
+        <th>Active</th>
+        <th class="col-actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for bank in banks %}
+      <tr>
+        <td><code>{{ bank.key }}</code></td>
+        <td>{{ bank.display_name }}</td>
+        <td>{{ bank.default_currency }}</td>
+        <td>{{ '✓' if bank.is_active else '✗' }}</td>
+        <td class="actions-cell">
+          <button type="button" class="btn-icon btn-edit-item" title="Edit" aria-label="Edit"
+            data-id="{{ bank.id }}"
+            data-key="{{ bank.key }}"
+            data-display-name="{{ bank.display_name }}"
+            data-default-currency="{{ bank.default_currency }}"
+            data-is-active="{{ 'true' if bank.is_active else 'false' }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3zM14 6l3 3"/></svg>
+          </button>
+          <button type="button" class="btn-icon btn-icon-danger btn-delete-item" title="Delete" aria-label="Delete"
+            data-id="{{ bank.id }}" data-name="{{ bank.display_name }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M10 11v6M14 11v6M6 7l1 12h10l1-12"/></svg>
+          </button>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="table-empty">No banks yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-overlay" id="itemFormModal">
+  <div class="modal">
+    <h3 id="itemFormTitle">Add Bank</h3>
+    <form id="itemForm" method="post" action="/banks/create">
+      <div class="form-group">
+        <label>Key</label>
+        <input type="text" name="key" id="itemKey" required pattern="[a-z0-9_]+" placeholder="monzo">
+      </div>
+      <div class="form-group">
+        <label>Display Name</label>
+        <input type="text" name="display_name" id="itemDisplayName" required>
+      </div>
+      <div class="form-group">
+        <label>Default Currency</label>
+        <input type="text" name="default_currency" id="itemCurrency" value="GBP" maxlength="3" required>
+      </div>
+      <div class="form-group">
+        <label>Active</label>
+        <select name="is_active" id="itemIsActive">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="itemFormModal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="itemFormSubmit">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deleteItemModal">
+  <div class="modal modal-sm">
+    <h3>Delete Bank</h3>
+    <p id="deleteItemMessage" class="modal-text"></p>
+    <p class="modal-text-muted">If used by statements, the bank will be deactivated instead.</p>
+    <form id="deleteItemForm" method="post">
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="deleteItemModal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const defaults = { key: '', displayName: '', currency: 'GBP', isActive: 'true' };
+
+function setValues(v) {
+  document.getElementById('itemKey').value = v.key;
+  document.getElementById('itemDisplayName').value = v.displayName;
+  document.getElementById('itemCurrency').value = v.currency;
+  document.getElementById('itemIsActive').value = v.isActive;
+}
+
+document.getElementById('btnAddBank').addEventListener('click', function() {
+  document.getElementById('itemForm').action = '/banks/create';
+  document.getElementById('itemFormTitle').textContent = 'Add Bank';
+  document.getElementById('itemFormSubmit').textContent = 'Add';
+  document.getElementById('itemKey').readOnly = false;
+  setValues(defaults);
+  openModal('itemFormModal');
+});
+
+document.querySelectorAll('.btn-edit-item').forEach(function(button) {
+  button.addEventListener('click', function() {
+    document.getElementById('itemForm').action = '/banks/' + button.dataset.id + '/edit';
+    document.getElementById('itemFormTitle').textContent = 'Edit Bank';
+    document.getElementById('itemFormSubmit').textContent = 'Save';
+    document.getElementById('itemKey').readOnly = true;
+    setValues({
+      key: button.dataset.key,
+      displayName: button.dataset.displayName,
+      currency: button.dataset.defaultCurrency,
+      isActive: button.dataset.isActive,
+    });
+    openModal('itemFormModal');
+  });
+});
+
+document.querySelectorAll('.btn-delete-item').forEach(function(button) {
+  button.addEventListener('click', function() {
+    document.getElementById('deleteItemForm').action = '/banks/' + button.dataset.id + '/delete';
+    document.getElementById('deleteItemMessage').textContent = 'Delete bank "' + button.dataset.name + '"?';
+    openModal('deleteItemModal');
+  });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% from "_macros.html" import category_badge %}
+{% block title %}Rules — Invoice Checker{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Classification Rules</h1>
+  <p>Pattern-based rules applied after memory matching</p>
+</div>
+
+<div class="card">
+    <div class="card-toolbar">
+    <div class="card-toolbar-title">
+      <h3>All Rules</h3>
+      <span class="card-toolbar-count">{{ rules|length }} total</span>
+    </div>
+    <button type="button" class="btn-icon btn-icon-primary" id="btnAddRule" title="Add rule" aria-label="Add rule">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Pattern</th>
+        <th>Type</th>
+        <th>Category</th>
+        <th>Invoice</th>
+        <th>Owner</th>
+        <th>Priority</th>
+        <th>Confidence</th>
+        <th>Active</th>
+        <th class="col-actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rule in rules %}
+      <tr>
+        <td>{{ rule.name }}</td>
+        <td><code>{{ rule.pattern }}</code></td>
+        <td>{{ rule.pattern_type }}</td>
+        <td>{{ category_badge(rule.category, category_styles) }}</td>
+        <td>
+          {% if rule.requires_invoice == true %}Yes
+          {% elif rule.requires_invoice == false %}No
+          {% else %}?{% endif %}
+        </td>
+        <td>{{ rule.invoice_owner or '—' }}</td>
+        <td>{{ rule.priority }}</td>
+        <td>{{ rule.confidence }}</td>
+        <td>{{ '✓' if rule.is_active else '✗' }}</td>
+        <td class="actions-cell">
+          <button
+            type="button"
+            class="btn-icon btn-edit-rule"
+            title="Edit rule"
+            aria-label="Edit rule"
+            data-id="{{ rule.id }}"
+            data-name="{{ rule.name }}"
+            data-pattern="{{ rule.pattern }}"
+            data-pattern-type="{{ rule.pattern_type }}"
+            data-category="{{ rule.category }}"
+            data-requires-invoice="{% if rule.requires_invoice == true %}true{% elif rule.requires_invoice == false %}false{% else %}unknown{% endif %}"
+            data-invoice-provider="{{ rule.invoice_provider or '' }}"
+            data-invoice-owner="{{ rule.invoice_owner or '' }}"
+            data-priority="{{ rule.priority }}"
+            data-confidence="{{ rule.confidence }}"
+            data-is-active="{{ 'true' if rule.is_active else 'false' }}"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3zM14 6l3 3"/></svg>
+          </button>
+          <button
+            type="button"
+            class="btn-icon btn-icon-danger btn-delete-rule"
+            title="Delete rule"
+            aria-label="Delete rule"
+            data-id="{{ rule.id }}"
+            data-name="{{ rule.name }}"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M10 11v6M14 11v6M6 7l1 12h10l1-12"/></svg>
+          </button>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="10" class="table-empty">No rules yet. Click + to add one.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-overlay" id="ruleFormModal">
+  <div class="modal">
+    <h3 id="ruleFormTitle">Add Rule</h3>
+    <form id="ruleForm" method="post" action="/rules/create">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" id="ruleName" required>
+      </div>
+      <div class="form-group">
+        <label>Pattern</label>
+        <input type="text" name="pattern" id="rulePattern" required>
+      </div>
+      <div class="form-group">
+        <label>Type</label>
+        <select name="pattern_type" id="rulePatternType">
+          {% for pt in pattern_types %}
+          <option value="{{ pt }}">{{ pt }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select name="category" id="ruleCategory">
+          {% for cat in categories %}
+          <option value="{{ cat.slug }}">{{ cat.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Requires Invoice</label>
+        <select name="requires_invoice" id="ruleInvoice">
+          <option value="unknown">Unknown</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Invoice Provider</label>
+        <input type="text" name="invoice_provider" id="ruleProvider" placeholder="merchant_name">
+      </div>
+      <div class="form-group">
+        <label>Invoice Owner</label>
+        <select name="invoice_owner" id="ruleOwner">
+          <option value="">— None —</option>
+          {% for owner in invoice_owners %}
+          <option value="{{ owner.name }}">{{ owner.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Priority</label>
+          <input type="number" name="priority" id="rulePriority" value="100">
+        </div>
+        <div class="form-group">
+          <label>Confidence</label>
+          <input type="number" name="confidence" id="ruleConfidence" value="0.8" min="0" max="1" step="0.01">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Active</label>
+        <select name="is_active" id="ruleActive">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="ruleFormModal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="ruleFormSubmit">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deleteRuleModal">
+  <div class="modal modal-sm">
+    <div class="modal-icon modal-icon-danger">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M10 11v6M14 11v6M6 7l1 12h10l1-12"/></svg>
+    </div>
+    <h3>Delete Rule</h3>
+    <p id="deleteRuleMessage" class="modal-text"></p>
+    <p class="modal-text-muted">This action cannot be undone. Already classified transactions will not change.</p>
+    <form id="deleteRuleForm" method="post">
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="deleteRuleModal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const ruleFormDefaults = {
+  name: '',
+  pattern: '',
+  patternType: 'contains',
+  category: '{{ categories[0].slug if categories else "unknown" }}',
+  requiresInvoice: 'unknown',
+  invoiceProvider: '',
+  invoiceOwner: '',
+  priority: '100',
+  confidence: '0.8',
+  isActive: 'true',
+};
+
+function setRuleFormValues(values) {
+  document.getElementById('ruleName').value = values.name;
+  document.getElementById('rulePattern').value = values.pattern;
+  document.getElementById('rulePatternType').value = values.patternType;
+  document.getElementById('ruleCategory').value = values.category;
+  document.getElementById('ruleInvoice').value = values.requiresInvoice;
+  document.getElementById('ruleProvider').value = values.invoiceProvider;
+  document.getElementById('ruleOwner').value = values.invoiceOwner;
+  document.getElementById('rulePriority').value = values.priority;
+  document.getElementById('ruleConfidence').value = values.confidence;
+  document.getElementById('ruleActive').value = values.isActive;
+}
+
+function openAddRule() {
+  document.getElementById('ruleForm').action = '/rules/create';
+  document.getElementById('ruleFormTitle').textContent = 'Add Rule';
+  document.getElementById('ruleFormSubmit').textContent = 'Add';
+  setRuleFormValues(ruleFormDefaults);
+  openModal('ruleFormModal');
+}
+
+function openEditRule(button) {
+  document.getElementById('ruleForm').action = '/rules/' + button.dataset.id + '/edit';
+  document.getElementById('ruleFormTitle').textContent = 'Edit Rule';
+  document.getElementById('ruleFormSubmit').textContent = 'Save';
+  setRuleFormValues({
+    name: button.dataset.name,
+    pattern: button.dataset.pattern,
+    patternType: button.dataset.patternType,
+    category: button.dataset.category,
+    requiresInvoice: button.dataset.requiresInvoice,
+    invoiceProvider: button.dataset.invoiceProvider,
+    invoiceOwner: button.dataset.invoiceOwner,
+    priority: button.dataset.priority,
+    confidence: button.dataset.confidence,
+    isActive: button.dataset.isActive,
+  });
+  openModal('ruleFormModal');
+}
+
+function openDeleteRule(button) {
+  document.getElementById('deleteRuleForm').action = '/rules/' + button.dataset.id + '/delete';
+  document.getElementById('deleteRuleMessage').textContent =
+    'Delete rule "' + button.dataset.name + '"?';
+  openModal('deleteRuleModal');
+}
+
+document.getElementById('btnAddRule').addEventListener('click', openAddRule);
+
+document.querySelectorAll('.btn-edit-rule').forEach(function(button) {
+  button.addEventListener('click', function() { openEditRule(button); });
+});
+
+document.querySelectorAll('.btn-delete-rule').forEach(function(button) {
+  button.addEventListener('click', function() { openDeleteRule(button); });
+});
+</script>
+{% endblock %}

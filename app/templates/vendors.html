@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% from "_macros.html" import category_badge %}
+{% block title %}Vendors — Invoice Checker{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Vendors</h1>
+  <p>Known merchants with default classification settings</p>
+</div>
+
+<div class="card">
+  <div class="card-toolbar">
+    <div class="card-toolbar-title">
+      <h3>All Vendors</h3>
+      <span class="card-toolbar-count">{{ vendors|length }} total</span>
+    </div>
+    <button type="button" class="btn-icon btn-icon-primary" id="btnAddVendor" title="Add vendor" aria-label="Add vendor">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Aliases</th>
+        <th>Category</th>
+        <th>Invoice</th>
+        <th>Provider</th>
+        <th>Owner</th>
+        <th class="col-actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for vendor in vendors %}
+      <tr>
+        <td>{{ vendor.name }}</td>
+        <td class="desc-cell">{{ (vendor.aliases or [])|join(', ') or '—' }}</td>
+        <td>{% if vendor.default_category %}{{ category_badge(vendor.default_category, category_styles) }}{% else %}—{% endif %}</td>
+        <td>
+          {% if vendor.default_requires_invoice == true %}Yes
+          {% elif vendor.default_requires_invoice == false %}No
+          {% else %}?{% endif %}
+        </td>
+        <td>{{ vendor.default_invoice_provider or '—' }}</td>
+        <td>{{ vendor.default_invoice_owner or '—' }}</td>
+        <td class="actions-cell">
+          <button type="button" class="btn-icon btn-edit-item" title="Edit" aria-label="Edit"
+            data-id="{{ vendor.id }}"
+            data-name="{{ vendor.name }}"
+            data-aliases="{{ (vendor.aliases or [])|join(', ') }}"
+            data-category="{{ vendor.default_category or '' }}"
+            data-requires-invoice="{% if vendor.default_requires_invoice == true %}true{% elif vendor.default_requires_invoice == false %}false{% else %}unknown{% endif %}"
+            data-invoice-provider="{{ vendor.default_invoice_provider or '' }}"
+            data-invoice-owner="{{ vendor.default_invoice_owner or '' }}"
+            data-notes="{{ vendor.notes or '' }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3zM14 6l3 3"/></svg>
+          </button>
+          <button type="button" class="btn-icon btn-icon-danger btn-delete-item" title="Delete" aria-label="Delete"
+            data-id="{{ vendor.id }}" data-name="{{ vendor.name }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M10 11v6M14 11v6M6 7l1 12h10l1-12"/></svg>
+          </button>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7" class="table-empty">No vendors yet. Click + to add one.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-overlay" id="itemFormModal">
+  <div class="modal">
+    <h3 id="itemFormTitle">Add Vendor</h3>
+    <form id="itemForm" method="post" action="/vendors/create">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" id="itemName" required>
+      </div>
+      <div class="form-group">
+        <label>Aliases (comma-separated)</label>
+        <input type="text" name="aliases" id="itemAliases" placeholder="openai, chatgpt">
+      </div>
+      <div class="form-group">
+        <label>Default Category</label>
+        <select name="default_category" id="itemCategory">
+          <option value="">— None —</option>
+          {% for cat in categories %}
+          <option value="{{ cat.slug }}">{{ cat.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Requires Invoice</label>
+        <select name="requires_invoice" id="itemRequiresInvoice">
+          <option value="unknown">Unknown</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Invoice Provider</label>
+        <input type="text" name="default_invoice_provider" id="itemProvider">
+      </div>
+      <div class="form-group">
+        <label>Invoice Owner</label>
+        <select name="default_invoice_owner" id="itemOwner">
+          <option value="">— None —</option>
+          {% for owner in invoice_owners %}
+          <option value="{{ owner.name }}">{{ owner.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea name="notes" id="itemNotes" rows="2"></textarea>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="itemFormModal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="itemFormSubmit">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deleteItemModal">
+  <div class="modal modal-sm">
+    <h3>Delete Vendor</h3>
+    <p id="deleteItemMessage" class="modal-text"></p>
+    <form id="deleteItemForm" method="post">
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="deleteItemModal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const defaults = {
+  name: '', aliases: '', category: '', requiresInvoice: 'unknown',
+  invoiceProvider: '', invoiceOwner: '', notes: '',
+};
+
+function setValues(v) {
+  document.getElementById('itemName').value = v.name;
+  document.getElementById('itemAliases').value = v.aliases;
+  document.getElementById('itemCategory').value = v.category;
+  document.getElementById('itemRequiresInvoice').value = v.requiresInvoice;
+  document.getElementById('itemProvider').value = v.invoiceProvider;
+  document.getElementById('itemOwner').value = v.invoiceOwner;
+  document.getElementById('itemNotes').value = v.notes;
+}
+
+document.getElementById('btnAddVendor').addEventListener('click', function() {
+  document.getElementById('itemForm').action = '/vendors/create';
+  document.getElementById('itemFormTitle').textContent = 'Add Vendor';
+  document.getElementById('itemFormSubmit').textContent = 'Add';
+  setValues(defaults);
+  openModal('itemFormModal');
+});
+
+document.querySelectorAll('.btn-edit-item').forEach(function(button) {
+  button.addEventListener('click', function() {
+    document.getElementById('itemForm').action = '/vendors/' + button.dataset.id + '/edit';
+    document.getElementById('itemFormTitle').textContent = 'Edit Vendor';
+    document.getElementById('itemFormSubmit').textContent = 'Save';
+    setValues({
+      name: button.dataset.name,
+      aliases: button.dataset.aliases,
+      category: button.dataset.category,
+      requiresInvoice: button.dataset.requiresInvoice,
+      invoiceProvider: button.dataset.invoiceProvider,
+      invoiceOwner: button.dataset.invoiceOwner,
+      notes: button.dataset.notes,
+    });
+    openModal('itemFormModal');
+  });
+});
+
+document.querySelectorAll('.btn-delete-item').forEach(function(button) {
+  button.addEventListener('click', function() {
+    document.getElementById('deleteItemForm').action = '/vendors/' + button.dataset.id + '/delete';
+    document.getElementById('deleteItemMessage').textContent = 'Delete vendor "' + button.dataset.name + '"?';
+    openModal('deleteItemModal');
+  });
+});
+</script>
+{% endblock %}

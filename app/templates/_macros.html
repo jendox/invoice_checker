@@ -1,0 +1,10 @@
+{% macro category_badge(slug, styles) %}
+{% set cat = styles.get(slug) %}
+<span class="badge" style="background: {{ cat.badge_bg if cat else '#334155' }}; color: {{ cat.badge_text if cat else '#e2e8f0' }}">
+  {{ cat.label if cat else slug }}
+</span>
+{% endmacro %}
+
+{% macro status_label(status, options) %}
+{{ (options | selectattr('key', 'equalto', status) | map(attribute='label') | list | first) or status.replace('_', ' ').title() }}
+{% endmacro %}

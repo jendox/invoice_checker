@@ -1,0 +1,503 @@
+{% extends "base.html" %}
+{% from "_macros.html" import category_badge, status_label %}
+{% block title %}Transactions — Invoice Checker{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Transactions</h1>
+  <p>{{ total }} transactions found</p>
+</div>
+
+{% if imported is not none %}
+<div class="alert alert-success" data-auto-dismiss="4000">
+  Imported {{ imported }} transactions{% if review is not none %}, {{ review }} need review{% endif %}.
+</div>
+{% endif %}
+
+{% if reclassified is not none %}
+<div class="alert alert-success" data-auto-dismiss="4000">
+  Reclassified {{ reclassified }} transactions{% if reclassify_skipped is not none %}, {{ reclassify_skipped }} unchanged{% endif %}.
+</div>
+{% endif %}
+
+{% if deleted is not none %}
+<div class="alert alert-success" data-auto-dismiss="4000">
+  Deleted {{ deleted }} transaction{% if deleted != 1 %}s{% endif %}.
+</div>
+{% endif %}
+
+{% if upload_error %}
+<div class="alert alert-error" data-auto-dismiss="6000">{{ upload_error }}</div>
+{% endif %}
+
+<div class="card">
+  <form method="get" class="filters" id="filtersForm">
+    <input type="hidden" name="page" id="filterPage" value="{{ page }}">
+
+    <div class="filters-dates">
+      <div class="form-group">
+        <label>From</label>
+        <input type="date" name="date_from" id="filterDateFrom" class="filter-date" value="{{ filters.date_from.isoformat() if filters.date_from else '' }}">
+      </div>
+      <div class="form-group">
+        <label>To</label>
+        <input type="date" name="date_to" id="filterDateTo" class="filter-date" value="{{ filters.date_to.isoformat() if filters.date_to else '' }}">
+      </div>
+      <div class="form-group date-presets">
+        <label>Quick</label>
+        <div class="date-presets-row">
+          <button type="button" class="btn-preset" data-preset="prev-month">Previous month</button>
+          <button type="button" class="btn-preset" data-preset="this-month">Current month</button>
+        </div>
+      </div>
+      <div class="form-group filters-upload">
+        <label aria-hidden="true">&nbsp;</label>
+        <button type="button" class="btn btn-primary" id="btnUploadStatement">Upload</button>
+      </div>
+    </div>
+
+    <div class="filters-main">
+    <div class="form-group">
+      <label>Search</label>
+      <input type="text" name="search" id="filterSearch" value="{{ filters.search or '' }}" placeholder="Min. 2 characters..." autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label>Company</label>
+      <select name="company_name" class="filter-select">
+        <option value="">All</option>
+        {% for company in company_filter_options %}
+        <option value="{{ company.key }}" {% if filters.company_name == company.key %}selected{% endif %}>{{ company.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Bank</label>
+      <select name="bank_name" class="filter-select">
+        <option value="">All</option>
+        {% for bank in bank_filter_options %}
+        <option value="{{ bank.key }}" {% if filters.bank_name == bank.key %}selected{% endif %}>{{ bank.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <select name="category" class="filter-select">
+        <option value="">All</option>
+        {% for cat in categories %}
+        <option value="{{ cat.slug }}" {% if filters.category == cat.slug %}selected{% endif %}>{{ cat.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Invoice</label>
+      <select name="requires_invoice" class="filter-select">
+        <option value="">All</option>
+        <option value="true" {% if filters.requires_invoice == true %}selected{% endif %}>Required</option>
+        <option value="false" {% if filters.requires_invoice == false %}selected{% endif %}>Not required</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Status</label>
+      <select name="status" class="filter-select">
+        <option value="">All</option>
+        {% for status in status_options %}
+        <option value="{{ status.key }}" {% if filters.status == status.key %}selected{% endif %}>{{ status.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group filters-reset">
+      <label aria-hidden="true">&nbsp;</label>
+      <div class="filters-actions">
+        <button type="button" class="btn-icon" id="btnResetFilters" title="Reset filters" aria-label="Reset filters">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v6h6"/><path d="M21 12A9 9 0 0 0 6 5.3L3 8"/></svg>
+        </button>
+        <button type="button" class="btn-icon" id="btnReclassify" title="Reclassify filtered transactions" aria-label="Reclassify filtered transactions">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+        </button>
+        <button type="button" class="btn-icon btn-icon-danger" id="btnDeleteTransactions" title="Delete filtered transactions" aria-label="Delete filtered transactions" data-total="{{ total }}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M10 11v6M14 11v6M6 7l1 12h10l1-12"/></svg>
+        </button>
+      </div>
+    </div>
+    </div>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="col-date">Date</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th class="col-category">Category</th>
+        <th>Invoice</th>
+        <th class="col-provider">Provider</th>
+        <th>Owner</th>
+        <th>Status</th>
+        <th class="col-actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tx in transactions %}
+      <tr>
+        <td class="col-date">{{ tx.transaction_date }}</td>
+        <td class="desc-cell" title="{{ tx.description_raw }}">{{ tx.description_raw }}</td>
+        <td>{{ tx.currency }} {{ tx.amount }} <small style="color:var(--text-muted)">{{ tx.direction }}</small></td>
+        <td class="col-category truncate-cell" title="{{ category_styles[tx.category].label if tx.category in category_styles else tx.category }}">{{ category_badge(tx.category, category_styles) }}</td>
+        <td>
+          {% if tx.requires_invoice == true %}<span class="badge badge-yes">Yes</span>
+          {% elif tx.requires_invoice == false %}<span class="badge badge-no">No</span>
+          {% else %}<span class="badge badge-review">?</span>{% endif %}
+        </td>
+        <td class="col-provider truncate-cell"{% if tx.invoice_provider %} title="{{ tx.invoice_provider }}"{% endif %}>{{ tx.invoice_provider or '—' }}</td>
+        <td>{{ tx.invoice_owner or '—' }}</td>
+        <td>{{ status_label(tx.status, status_options) }}</td>
+        <td class="actions-cell">
+          <button
+            type="button"
+            class="btn-icon btn-edit-tx"
+            title="Edit classification"
+            aria-label="Edit classification"
+            data-id="{{ tx.id }}"
+            data-category="{{ tx.category }}"
+            data-requires-invoice="{% if tx.requires_invoice == true %}true{% elif tx.requires_invoice == false %}false{% else %}unknown{% endif %}"
+            data-invoice-provider="{{ tx.invoice_provider or '' }}"
+            data-invoice-owner="{{ tx.invoice_owner or '' }}"
+            data-status="{{ tx.status }}"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3zM14 6l3 3"/></svg>
+          </button>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="9" class="table-empty">No transactions yet. <button type="button" class="link-button" id="btnUploadEmpty">Upload a statement</button>.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if pages > 1 %}
+  <div class="pagination">
+    {% if page > 1 %}<a href="?{{ pagination_query(filters, page - 1) }}">← Prev</a>{% endif %}
+    <span>Page {{ page }} / {{ pages }}</span>
+    {% if page < pages %}<a href="?{{ pagination_query(filters, page + 1) }}">Next →</a>{% endif %}
+  </div>
+  {% endif %}
+</div>
+
+<div class="modal-overlay" id="uploadModal">
+  <div class="modal">
+    <h3>Upload Statement</h3>
+    <p class="modal-text-muted">Import CSV or XLSX bank statements. Invoice &amp; Comment columns are ignored.</p>
+    <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+      {% with upload_field_prefix='uploadModal' %}
+      {% include "_upload_form_fields.html" %}
+      {% endwith %}
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="uploadModal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Upload &amp; Classify</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="editTxModal">
+  <div class="modal">
+    <h3>Edit Classification</h3>
+    <form id="editTxForm" method="post">
+      <div class="form-group">
+        <label>Category</label>
+        <select name="category" id="editTxCategory">
+          {% for cat in categories %}
+          <option value="{{ cat.slug }}">{{ cat.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Requires Invoice</label>
+        <select name="requires_invoice" id="editTxInvoice">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+          <option value="unknown">Unknown</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Invoice Provider</label>
+        <input type="text" name="invoice_provider" id="editTxProvider">
+      </div>
+      <div class="form-group">
+        <label>Invoice Owner</label>
+        <select name="invoice_owner" id="editTxOwner">
+          <option value="">— None —</option>
+          {% for owner in invoice_owners %}
+          <option value="{{ owner.name }}">{{ owner.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select name="status" id="editTxStatus">
+          {% for status in status_options %}
+          <option value="{{ status.key }}">{{ status.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Comment</label>
+        <textarea name="comment" rows="2" placeholder="Optional feedback note"></textarea>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="editTxModal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="reclassifyModal">
+  <div class="modal">
+    <h3>Reclassify Transactions</h3>
+    <p class="modal-text-muted">
+      Re-runs the classification pipeline (memory → rules → vendors) for transactions matching the current filters.
+      Manually edited transactions are always skipped.
+    </p>
+    <p class="modal-text" id="reclassifyScope">Scope: all loaded transactions</p>
+    <form method="post" action="/transactions/reclassify" id="reclassifyForm">
+      <input type="hidden" name="bank_name" id="reclassifyBank">
+      <input type="hidden" name="category" id="reclassifyCategory">
+      <input type="hidden" name="company_name" id="reclassifyCompany">
+      <input type="hidden" name="status" id="reclassifyStatus">
+      <input type="hidden" name="requires_invoice" id="reclassifyInvoice">
+      <input type="hidden" name="search" id="reclassifySearch">
+      <input type="hidden" name="date_from" id="reclassifyDateFrom">
+      <input type="hidden" name="date_to" id="reclassifyDateTo">
+      <div class="form-group">
+        <label>Skip Memory</label>
+        <select name="skip_memory" id="reclassifySkipMemory">
+          <option value="true" selected>Yes — rules apply directly</option>
+          <option value="false">No — memory matches first</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="reclassifyModal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Reclassify</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deleteTransactionsModal">
+  <div class="modal modal-sm">
+    <div class="modal-icon modal-icon-danger">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M10 11v6M14 11v6M6 7l1 12h10l1-12"/></svg>
+    </div>
+    <h3>Delete Transactions</h3>
+    <p class="modal-text-muted">This permanently removes transactions and their feedback history. This action cannot be undone.</p>
+    <p class="modal-text" id="deleteScope">Scope: all loaded transactions</p>
+    <p class="modal-text" id="deleteCount"></p>
+    <form method="post" action="/transactions/delete" id="deleteTransactionsForm">
+      <input type="hidden" name="bank_name" id="deleteBank">
+      <input type="hidden" name="category" id="deleteCategory">
+      <input type="hidden" name="company_name" id="deleteCompany">
+      <input type="hidden" name="status" id="deleteStatus">
+      <input type="hidden" name="requires_invoice" id="deleteInvoice">
+      <input type="hidden" name="search" id="deleteSearch">
+      <input type="hidden" name="date_from" id="deleteDateFrom">
+      <input type="hidden" name="date_to" id="deleteDateTo">
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="deleteTransactionsModal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const filtersForm = document.getElementById('filtersForm');
+const filterPage = document.getElementById('filterPage');
+const filterSearch = document.getElementById('filterSearch');
+const filterDateFrom = document.getElementById('filterDateFrom');
+const filterDateTo = document.getElementById('filterDateTo');
+let searchDebounce;
+
+function formatLocalDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return year + '-' + month + '-' + day;
+}
+
+function setMonthPreset(monthOffset) {
+  const now = new Date();
+  const first = new Date(now.getFullYear(), now.getMonth() + monthOffset, 1);
+  const last = new Date(now.getFullYear(), now.getMonth() + monthOffset + 1, 0);
+  filterDateFrom.value = formatLocalDate(first);
+  filterDateTo.value = formatLocalDate(last);
+  submitFilters();
+}
+
+function submitFilters() {
+  filterPage.value = '1';
+  [
+    { input: filterDateFrom, name: 'date_from' },
+    { input: filterDateTo, name: 'date_to' },
+  ].forEach(function(field) {
+    if (field.input.value) {
+      field.input.setAttribute('name', field.name);
+    } else {
+      field.input.removeAttribute('name');
+    }
+  });
+  filtersForm.requestSubmit();
+}
+
+function resetFilters() {
+  window.location.href = '/transactions';
+}
+
+document.querySelectorAll('.filter-select').forEach(function(select) {
+  select.addEventListener('change', submitFilters);
+});
+
+document.querySelectorAll('.filter-date').forEach(function(input) {
+  input.addEventListener('change', submitFilters);
+});
+
+document.querySelectorAll('.btn-preset').forEach(function(button) {
+  button.addEventListener('click', function() {
+    if (button.dataset.preset === 'this-month') {
+      setMonthPreset(0);
+    } else if (button.dataset.preset === 'prev-month') {
+      setMonthPreset(-1);
+    }
+  });
+});
+
+filterSearch.addEventListener('input', function() {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(function() {
+    const length = filterSearch.value.trim().length;
+    if (length >= 2) {
+      submitFilters();
+      return;
+    }
+    const hadSearch = filterSearch.hasAttribute('name');
+    filterSearch.removeAttribute('name');
+    submitFilters();
+    if (hadSearch) {
+      filterSearch.setAttribute('name', 'search');
+    }
+  }, 350);
+});
+
+document.getElementById('btnResetFilters').addEventListener('click', resetFilters);
+
+function buildFilterScopeParts() {
+  const bank = document.querySelector('[name=bank_name]');
+  const category = document.querySelector('[name=category]');
+  const company = document.querySelector('[name=company_name]');
+  const status = document.querySelector('[name=status]');
+  const invoice = document.querySelector('[name=requires_invoice]');
+  const search = document.getElementById('filterSearch');
+  const parts = [];
+
+  if (bank && bank.value) parts.push('bank: ' + bank.options[bank.selectedIndex].text);
+  if (company && company.value) parts.push('company: ' + company.options[company.selectedIndex].text);
+  if (category && category.value) parts.push('category: ' + category.options[category.selectedIndex].text);
+  if (status && status.value) parts.push('status: ' + status.options[status.selectedIndex].text);
+  if (invoice && invoice.value) parts.push('invoice: ' + invoice.value);
+  if (filterDateFrom && filterDateFrom.value) parts.push('from: ' + filterDateFrom.value);
+  if (filterDateTo && filterDateTo.value) parts.push('to: ' + filterDateTo.value);
+  if (search && search.value.trim().length >= 2) parts.push('search: "' + search.value.trim() + '"');
+
+  return parts;
+}
+
+function syncBulkActionFilters(prefix) {
+  const bank = document.querySelector('[name=bank_name]');
+  const category = document.querySelector('[name=category]');
+  const company = document.querySelector('[name=company_name]');
+  const status = document.querySelector('[name=status]');
+  const invoice = document.querySelector('[name=requires_invoice]');
+  const search = document.getElementById('filterSearch');
+
+  document.getElementById(prefix + 'Bank').value = bank ? bank.value : '';
+  document.getElementById(prefix + 'Category').value = category ? category.value : '';
+  document.getElementById(prefix + 'Company').value = company ? company.value : '';
+  document.getElementById(prefix + 'Status').value = status ? status.value : '';
+  document.getElementById(prefix + 'Invoice').value = invoice ? invoice.value : '';
+  document.getElementById(prefix + 'Search').value = search ? search.value.trim() : '';
+  document.getElementById(prefix + 'DateFrom').value = filterDateFrom ? filterDateFrom.value : '';
+  document.getElementById(prefix + 'DateTo').value = filterDateTo ? filterDateTo.value : '';
+}
+
+function formatFilterScopeText() {
+  const parts = buildFilterScopeParts();
+  return parts.length ? 'Scope: ' + parts.join(', ') : 'Scope: all loaded transactions';
+}
+
+function openReclassifyModal() {
+  syncBulkActionFilters('reclassify');
+  document.getElementById('reclassifyScope').textContent = formatFilterScopeText();
+  openModal('reclassifyModal');
+}
+
+function openDeleteTransactionsModal() {
+  syncBulkActionFilters('delete');
+  document.getElementById('deleteScope').textContent = formatFilterScopeText();
+  const total = document.getElementById('btnDeleteTransactions').dataset.total || '0';
+  document.getElementById('deleteCount').textContent =
+    total + ' transaction' + (total === '1' ? '' : 's') + ' will be deleted.';
+  openModal('deleteTransactionsModal');
+}
+
+document.getElementById('btnReclassify').addEventListener('click', openReclassifyModal);
+document.getElementById('btnDeleteTransactions').addEventListener('click', openDeleteTransactionsModal);
+
+function openUploadModal() {
+  openModal('uploadModal');
+}
+
+document.getElementById('btnUploadStatement').addEventListener('click', openUploadModal);
+const btnUploadEmpty = document.getElementById('btnUploadEmpty');
+if (btnUploadEmpty) {
+  btnUploadEmpty.addEventListener('click', openUploadModal);
+}
+
+{% if open_upload %}
+openUploadModal();
+{% endif %}
+
+const uploadFileInput = document.getElementById('uploadModalfile');
+const uploadCurrencySelect = document.getElementById('uploadModalstatement_currency');
+if (uploadFileInput && uploadCurrencySelect) {
+  uploadFileInput.addEventListener('change', function() {
+    const filename = uploadFileInput.files && uploadFileInput.files[0] ? uploadFileInput.files[0].name : '';
+    if (!filename) {
+      return;
+    }
+    const lowered = filename.toLowerCase();
+    let currency = 'GBP';
+    if (filename.includes('$') || lowered.includes('usd')) {
+      currency = 'USD';
+    } else if (filename.includes('€') || lowered.includes('eur')) {
+      currency = 'EUR';
+    }
+    uploadCurrencySelect.value = currency;
+  });
+}
+
+function openEditTx(button) {
+  document.getElementById('editTxForm').action = '/transactions/' + button.dataset.id + '/edit';
+  document.getElementById('editTxCategory').value = button.dataset.category;
+  document.getElementById('editTxInvoice').value = button.dataset.requiresInvoice;
+  document.getElementById('editTxProvider').value = button.dataset.invoiceProvider;
+  document.getElementById('editTxOwner').value = button.dataset.invoiceOwner;
+  document.getElementById('editTxStatus').value = button.dataset.status;
+  openModal('editTxModal');
+}
+
+document.querySelectorAll('.btn-edit-tx').forEach(function(button) {
+  button.addEventListener('click', function() { openEditTx(button); });
+});
+</script>
+{% endblock %}

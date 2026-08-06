@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block title %}Invoice Owners — Invoice Checker{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Invoice Owners</h1>
+  <p>People responsible for providing invoices. Used in classification and export.</p>
+</div>
+
+<div class="card">
+  <div class="card-toolbar">
+    <div class="card-toolbar-title">
+      <h3>All Owners</h3>
+      <span class="card-toolbar-count">{{ owners|length }} total</span>
+    </div>
+    <button type="button" class="btn-icon btn-icon-primary" id="btnAddOwner" title="Add owner" aria-label="Add owner">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Notes</th>
+        <th>Active</th>
+        <th class="col-actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for owner in owners %}
+      <tr>
+        <td>{{ owner.name }}</td>
+        <td>{{ owner.email or '—' }}</td>
+        <td class="desc-cell">{{ owner.notes or '—' }}</td>
+        <td>{{ '✓' if owner.is_active else '✗' }}</td>
+        <td class="actions-cell">
+          <button type="button" class="btn-icon btn-edit-item" title="Edit" aria-label="Edit"
+            data-id="{{ owner.id }}"
+            data-name="{{ owner.name }}"
+            data-email="{{ owner.email or '' }}"
+            data-notes="{{ owner.notes or '' }}"
+            data-is-active="{{ 'true' if owner.is_active else 'false' }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3zM14 6l3 3"/></svg>
+          </button>
+          <button type="button" class="btn-icon btn-icon-danger btn-delete-item" title="Delete" aria-label="Delete"
+            data-id="{{ owner.id }}" data-name="{{ owner.name }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V5h6v2M10 11v6M14 11v6M6 7l1 12h10l1-12"/></svg>
+          </button>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="table-empty">No invoice owners yet. Add Boris, Anna, etc.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-overlay" id="itemFormModal">
+  <div class="modal">
+    <h3 id="itemFormTitle">Add Invoice Owner</h3>
+    <form id="itemForm" method="post" action="/invoice-owners/create">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" id="itemName" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" id="itemEmail">
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea name="notes" id="itemNotes" rows="2"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Active</label>
+        <select name="is_active" id="itemIsActive">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="itemFormModal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="itemFormSubmit">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deleteItemModal">
+  <div class="modal modal-sm">
+    <h3>Delete Invoice Owner</h3>
+    <p id="deleteItemMessage" class="modal-text"></p>
+    <p class="modal-text-muted">If assigned to transactions, the owner will be deactivated instead.</p>
+    <form id="deleteItemForm" method="post">
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" data-modal-close="deleteItemModal">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const defaults = { name: '', email: '', notes: '', isActive: 'true' };
+
+function setValues(v) {
+  document.getElementById('itemName').value = v.name;
+  document.getElementById('itemEmail').value = v.email;
+  document.getElementById('itemNotes').value = v.notes;
+  document.getElementById('itemIsActive').value = v.isActive;
+}
+
+document.getElementById('btnAddOwner').addEventListener('click', function() {
+  document.getElementById('itemForm').action = '/invoice-owners/create';
+  document.getElementById('itemFormTitle').textContent = 'Add Invoice Owner';
+  document.getElementById('itemFormSubmit').textContent = 'Add';
+  setValues(defaults);
+  openModal('itemFormModal');
+});
+
+document.querySelectorAll('.btn-edit-item').forEach(function(button) {
+  button.addEventListener('click', function() {
+    document.getElementById('itemForm').action = '/invoice-owners/' + button.dataset.id + '/edit';
+    document.getElementById('itemFormTitle').textContent = 'Edit Invoice Owner';
+    document.getElementById('itemFormSubmit').textContent = 'Save';
+    setValues({
+      name: button.dataset.name,
+      email: button.dataset.email,
+      notes: button.dataset.notes,
+      isActive: button.dataset.isActive,
+    });
+    openModal('itemFormModal');
+  });
+});
+
+document.querySelectorAll('.btn-delete-item').forEach(function(button) {
+  button.addEventListener('click', function() {
+    document.getElementById('deleteItemForm').action = '/invoice-owners/' + button.dataset.id + '/delete';
+    document.getElementById('deleteItemMessage').textContent = 'Delete owner "' + button.dataset.name + '"?';
+    openModal('deleteItemModal');
+  });
+});
+</script>
+{% endblock %}
