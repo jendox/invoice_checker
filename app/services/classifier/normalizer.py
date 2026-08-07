@@ -48,5 +48,10 @@ def make_fingerprint(
     currency: str,
     description_normalized: str,
 ) -> str:
-    raw = f"{bank_name}|{transaction_date}|{amount}|{currency}|{description_normalized}"
+    normalized_amount = amount.quantize(Decimal("0.01"))
+    normalized_currency = currency.strip().upper()[:3]
+    raw = (
+        f"{bank_name}|{transaction_date}|{normalized_amount}|"
+        f"{normalized_currency}|{description_normalized}"
+    )
     return hashlib.sha256(raw.encode()).hexdigest()

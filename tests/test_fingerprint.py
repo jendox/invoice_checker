@@ -21,3 +21,9 @@ def test_fingerprint_differs_by_amount():
     fp1 = make_fingerprint("amex", date(2026, 6, 1), Decimal("100.00"), "GBP", "google ads")
     fp2 = make_fingerprint("amex", date(2026, 6, 1), Decimal("200.00"), "GBP", "google ads")
     assert fp1 != fp2
+
+
+def test_fingerprint_same_for_equivalent_amounts():
+    fp1 = make_fingerprint("revolut", date(2026, 7, 14), Decimal("10"), "GBP", "revolut business fee")
+    fp2 = make_fingerprint("revolut", date(2026, 7, 14), Decimal("10.00"), "GBP", "revolut business fee")
+    assert fp1 == fp2
